@@ -32,11 +32,11 @@ pipeline{
         stage ('upload to nexus'){
             steps{
                 script{ 
-                    def NexusRepo = Version.endsWith ("SNAPSHOT") ? "sharada-firstnexus-repo-SNAPSHOT" : "sharada-firstrepo-RELEASE"
+                    def NexusRepo = Version.endsWith("SNAPSHOT") ? "sharada-firstnexus-repo-SNAPSHOT" : "sharada-firstrepo-RELEASE"
               nexusArtifactUploader artifacts:
                [[artifactId: "${ArtifactId}", 
                classifier: '',
-                file: target/${artifactId}-${version}.war,
+                file: "target/${artifactId}-${version}.war",
                  type: 'war']],
                  credentialsId: 'cdc0e6c3-e0ff-4526-a1e9-a7dd6f95358e',
                  groupId: "${GroupId}",
