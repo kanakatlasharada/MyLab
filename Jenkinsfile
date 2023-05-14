@@ -4,6 +4,12 @@ pipeline{
     tools {
         maven 'maven 3.9.1'
     }
+    environment{
+        ArtifactId = readMavenPom().getArtifactId() 
+        Version = readMavenPom().getVersion()
+        Name =  readMavenPom().getName()
+        GroupId = readMavenPom().getGroupId()
+    }
 
     stages {
         // Specify various stage with in stages
@@ -25,10 +31,30 @@ pipeline{
        //Stage3 : upload artifacts to nexus
         stage ('upload to nexus'){
             steps{
-              nexusArtifactUploader artifacts: [[artifactId: 'VinayDevOpsLab', classifier: '', file: 'target/VinayDevOpsLab-0.0.5-SNAPSHOT.war', type: 'war']], credentialsId: 'cdc0e6c3-e0ff-4526-a1e9-a7dd6f95358e', groupId: 'com.vinaysdevopslab', nexusUrl: '172.31.28.193:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'sharada-firstnexus-repo-SNAPSHOT', version: '0.0.5-SNAPSHOT'  
+              nexusArtifactUploader artifacts:
+               [[artifactId: 'VinayDevOpsLab', 
+               classifier: '',
+                file: 'target/VinayDevOpsLab-0.0.5-SNAPSHOT.war',
+                 type: 'war']],
+                 credentialsId: 'cdc0e6c3-e0ff-4526-a1e9-a7dd6f95358e',
+                 groupId: 'com.vinaysdevopslab',
+                 nexusUrl: '172.31.28.193:8081',
+                 nexusVersion: 'nexus3', 
+                 protocol: 'http',
+                 repository: 'sharada-firstnexus-repo-SNAPSHOT', 
+                 version: '0.0.5-SNAPSHOT'  
             }
         }
-        // Stage3 : deploying
+        // Stage4 : printing retrieving values
+        stage ('printing') {
+            steps {
+                echo "ArtifactId is '${ArtifactId}'"
+                echo "Version is '${Version}'"
+                echo "Name is '${Name}'"
+                echo "GroupId is '${GroupId}'"
+            }
+        }
+        // Stage5 : deploying
         stage ('for deploy'){
             steps {
                 echo ' Deploying......'
