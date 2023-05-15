@@ -71,14 +71,7 @@ pipeline{
                         excludes: '',
                          execCommand: 'ansible-playbook /opt/playbooks/downloadanddeploy.yml -i /opt/playbooks/hosts', 
                          execTimeout: 120000,
-                          flatten: false, 
-                          makeEmptyDirs: false,
-                           noDefaultExcludes: false,
-                            patternSeparator: '[, ]+',
-                             remoteDirectory: '',
-                              remoteDirectorySDF: false,
-                               removePrefix: '',
-                                sourceFiles: ''
+                         
                                 )],
                                  usePromotionTimestamp: false,
                                   useWorkspaceInPromotion: false,
