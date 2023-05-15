@@ -32,11 +32,11 @@ pipeline{
         //Stage3 : upload artifacts to nexus
         stage ('upload to nexus'){
             steps{
-                script{ 
-                    def NexusRepo = Version.endsWith("SNAPSHOT") ? "sharada-firstnexus-repo-SNAPSHOT" : "sharada-firstrepo-RELEASE"
+                
+                   
                       
                         nexusArtifactUploader artifacts: [[artifactId: 'VinayDevOpsLab', classifier: '', file: 'target/VinayDevOpsLab-0.0.7-SNAPSHOT.war', type: 'war']], credentialsId: 'cdc0e6c3-e0ff-4526-a1e9-a7dd6f95358e', groupId: 'com.vinaysdevopslab', nexusUrl: '54.167.113.122:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'sharada-firstnexus-repo-SNAPSHOT', version: '0.0.7-SNAPSHOT'
-            }
+            
            }
         }
         // Stage4 : printing retrieving values
