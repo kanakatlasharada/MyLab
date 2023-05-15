@@ -34,7 +34,7 @@ pipeline{
             steps{
                 script{ 
                     def NexusRepo = Version.endsWith("SNAPSHOT") ? "sharada-firstnexus-repo-SNAPSHOT" : "sharada-firstrepo-RELEASE"
-                        nexusArtifactUploader artifacts:
+                        NexusArtifactUploader artifacts:
                           [[artifactId: $"{ArtifactId}", 
                               classifier: '',
                               file: "target/${ArtifactId}-${Version}.war",
