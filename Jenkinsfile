@@ -28,43 +28,13 @@ pipeline{
 
             }
         }
-       //Stage3 : upload artifacts to nexus
-        stage ('upload to nexus'){
+        stage('SonarQube analysis') {
             steps{
-                script{ 
-                    def NexusRepo = Version.endsWith("SNAPSHOT") ? "sharada-firstnexus-repo-SNAPSHOT" : "sharada-firstrepo-RELEASE"
-              nexusArtifactUploader artifacts:
-               [[artifactId: "${ArtifactId}", 
-               classifier: '',
-                file: "target/${artifactId}-${version}.war",
-                 type: 'war']],
-                 credentialsId: 'cdc0e6c3-e0ff-4526-a1e9-a7dd6f95358e',
-                 groupId: "${GroupId}",
-                 nexusUrl: '172.31.28.193:8081',
-                 nexusVersion: 'nexus3', 
-                 protocol: 'http',
-                 repository: "${NexusRepo}", 
-                 version: "${Version}"  
-            }
-           }
-        }
-        // Stage4 : printing retrieving values
-        stage ('printing') {
-            steps {
-                echo "ArtifactId is '${ArtifactId}'"
-                echo "Version is '${Version}'"
-                echo "Name is '${Name}'"
-                echo "GroupId is '${GroupId}'"
-            }
-        }
-        // Stage5 : deploying
-        stage ('for deploy'){
-            steps {
-                echo ' Deploying......'
-                }
-
-            }
-     
-    }
-
-}
+                echo "source code published sonarqube for SCA..."
+                 withSonarQubeEnv('sonarqube') { // You can override the credential to be used
+                 sh 'mvn sonar:sonar'
+       }
+     } 
+   }
+ }
+} 
