@@ -35,17 +35,17 @@ pipeline{
                 script{ 
                     def NexusRepo = Version.endsWith("SNAPSHOT") ? "sharada-firstnexus-repo-SNAPSHOT" : "sharada-firstrepo-RELEASE"
               nexusArtifactUploader artifacts:
-               [[artifactId: "${ArtifactId}", 
+               [[artifactId: 'VinayDevOpsLab', 
                classifier: '',
-                file: "target/${artifactId}-${version}.war",
+                file: 'target/VinayDevOpsLab-0.0.6-SNAPSHOT.war',
                  type: 'war']],
-                 credentialsId: 'cdc0e6c3-e0ff-4526-a1e9-a7dd6f95358e',
-                 groupId: "${GroupId}",
-                 nexusUrl: '172.31.28.193:8081',
-                 nexusVersion: 'nexus3', 
-                 protocol: 'http',
-                 repository: "${NexusRepo}", 
-                 version: "${Version}"  
+                  credentialsId: 'cdc0e6c3-e0ff-4526-a1e9-a7dd6f95358e', 
+                  groupId: 'com.vinaysdevopslab',
+                   nexusUrl: '54.167.113.122:8081', 
+                   nexusVersion: 'nexus3', 
+                   protocol: 'http',
+                    repository: 'sharada-firstnexus-repo-SNAPSHOT',
+                     version: '0.0.6-SNAPSHOT'  
             }
            }
         }
