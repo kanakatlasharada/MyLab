@@ -28,12 +28,13 @@ pipeline{
 
             }
         }
-        stage('SonarQube Analysis') {
-           def mvn = tool 'maven 3.9.1';
-            withSonarQubeEnv() {
-            sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=test -Dsonar.projectName='test'"
-    }
-  }
-
+        stage ('sonarqube analysis') {
+            steps{
+                echo 'source code published to sonarqube for SCA....'
+                withSonarQubeEnv('sonarqube'){
+                    sh 'mvn sonar:sonar'
+                }
+            }
+        }
  }
 } 
