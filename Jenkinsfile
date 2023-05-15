@@ -28,6 +28,7 @@ pipeline{
 
             }
         }
+<<<<<<< HEAD
         //Stage3 : upload artifacts to nexus
         stage ('upload to nexus'){
             steps{
@@ -91,3 +92,4 @@ pipeline{
     }
 
 }
+
