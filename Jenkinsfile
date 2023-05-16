@@ -48,7 +48,26 @@ pipeline{
         stage ('for deploy'){
             steps {
                 echo ' Deploying......'
-                sshPublisher(publishers: [sshPublisherDesc(configName: 'ansible-controller', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'ansible-playbook /opt/playbooks/downloadanddeploy.yml -i /opt/playbooks/hosts', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '/home/ansadmin', sourceFiles: '/home/ansadmin/*.war')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                sshPublisher(publishers: 
+                [sshPublisherDesc(
+                    configName: 'ansible-controller', 
+                    transfers: [
+                        sshTransfer(
+                            cleanRemote: false, 
+                            excludes: '', 
+                            execCommand: 'ansible-playbook /opt/playbooks/downloadanddeploy.yml -i /opt/playbooks/hosts', 
+                            execTimeout: 120000, 
+                            flatten: false, 
+                            makeEmptyDirs: false, 
+                            noDefaultExcludes: false, 
+                            patternSeparator: '[, ]+', 
+                            remoteDirectory: '/opt/apache-tomcat-9.0.75/webapps',
+                            remoteDirectorySDF: false,
+                            removePrefix: '/home/ansadmin', 
+                            sourceFiles: '/home/ansadmin/*.war')], 
+                            usePromotionTimestamp: false, 
+                            useWorkspaceInPromotion: false, 
+                            verbose: false)])
                 }
 
             }
