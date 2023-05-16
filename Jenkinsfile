@@ -30,26 +30,24 @@ pipeline{
         }
 
         //Stage3 : upload artifacts to nexus
-       stage ('Publish to Nexus'){
-            steps {
-                script {
-
-                def NexusRepo = Version.endsWith("SNAPSHOT") ? "sharada-firstnexus-repo-SNAPSHOT" : "sharada-firstrepo-RELEASE"
-
-                nexusArtifactUploader artifacts: 
-                [[artifactId: "${ArtifactId}", 
-                classifier: '', 
-                file: "target/${ArtifactId}-${Version}.war", 
-                type: 'war']], 
-                credentialsId: 'cdc0e6c3-e0ff-4526-a1e9-a7dd6f95358e', 
-                groupId: "${GroupId}", 
-                nexusUrl: '172.31.28.193:8081', 
-                nexusVersion: 'nexus3', 
-                protocol: 'http', 
-                repository: "${NexusRepo}", 
-                version: "${Version}"
-             }
+        stage ('upload to nexus'){
+            steps{
+                script{ 
+                    def NexusRepo = Version.endsWith("SNAPSHOT") ? "sharada-firstnexus-repo-SNAPSHOT" : "sharada-firstrepo-RELEASE"
+              nexusArtifactUploader artifacts:
+               [[artifactId: "${ArtifactId}", 
+               classifier: '',
+                file: "target/${artifactId}-${version}.war",
+                 type: 'war']],
+                 credentialsId: 'cdc0e6c3-e0ff-4526-a1e9-a7dd6f95358e',
+                 groupId: "${GroupId}",
+                 nexusUrl: '172.31.28.193:8081',
+                 nexusVersion: 'nexus3', 
+                 protocol: 'http',
+                 repository: "${NexusRepo}", 
+                 version: "${Version}"  
             }
+           }
         }
         // Stage4 : printing retrieving values
         stage ('printing') {
