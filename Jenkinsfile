@@ -56,7 +56,7 @@ pipeline{
 		                    cleanRemote: false, 
 		                    execCommand: 'ansible-playbook /opt/playbooks/downloadanddeploy.yml -i /opt/playbooks/hosts', 
 		                    execTimeout: 120000, 
-                            )]
+                            )],
  		                    usePromotionTimestamp: false, 
 		                    useWorkspaceInPromotion: false, 
 		                    verbose: false)
